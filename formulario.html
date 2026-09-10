@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario Completo en HTML5</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      color: #222;
+    }
+    fieldset {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    legend {
+      font-weight: bold;
+      padding: 0 0.5rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+    .form-group-inline {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    label {
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    input[type="search"],
+    input[type="number"],
+    input[type="date"],
+    input[type="time"],
+    input[type="datetime-local"],
+    input[type="month"],
+    input[type="week"],
+    select,
+    textarea {
+      padding: 0.5rem;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    button, input[type="submit"], input[type="reset"], input[type="button"] {
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Registro y Configuración Completa</h1>
+
+  <!-- 'enctype' necesario si se incluye input type="file" -->
+  <form action="/api/guardar" method="POST" enctype="multipart/form-data" autocomplete="on">
+
+    <!-- 0. INPUT OCULTO (HIDDEN) -->
+    <input type="hidden" name="token_csrf" value="abc123tokenDeSeguridad">
+
+    <!-- 1. CAMPOS DE TEXTO Y DATOS ESPECÍFICOS -->
+    <fieldset>
+      <legend>1. Entradas de texto y datos estructurados</legend>
+
+      <div class="form-group">
+        <label for="texto">Texto plano (type="text"):</label>
+        <input type="text" id="texto" name="nombre" placeholder="Escribe tu nombre completo" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña (type="password"):</label>
+        <input type="password" id="password" name="password" minlength="8" placeholder="Mínimo 8 caracteres" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Correo electrónico (type="email"):</label>
+        <input type="email" id="email" name="correo" placeholder="ejemplo@dominio.com">
+      </div>
+
+      <div class="form-group">
+        <label for="tel">Teléfono (type="tel"):</label>
+        <input type="tel" id="tel" name="telefono" placeholder="+591 70000000" pattern="[0-9+ ]{8,15}">
+      </div>
+
+      <div class="form-group">
+        <label for="url">Sitio web / URL (type="url"):</label>
+        <input type="url" id="url" name="sitio_web" placeholder="https://tusitio.com">
+      </div>
+
+      <div class="form-group">
+        <label for="search">Búsqueda (type="search"):</label>
+        <input type="search" id="search" name="buscar" placeholder="Buscar palabras clave...">
+      </div>
+
+      <div class="form-group">
+        <label for="number">Número (type="number"):</label>
+        <input type="number" id="number" name="edad" min="1" max="120" step="1" value="25">
+      </div>
+
+      <!-- TEXTAREA -->
+      <div class="form-group">
+        <label for="biografia">Área de texto multilínea (&lt;textarea&gt;):</label>
+        <textarea id="biografia" name="biografia" rows="4" cols="50" placeholder="Escribe una breve descripción..."></textarea>
+      </div>
+
+      <!-- DATALIST -->
+      <div class="form-group">
+        <label for="navegador">Texto con sugerencias dinámicas (&lt;datalist&gt;):</label>
+        <input list="lista-navegadores" id="navegador" name="navegador" placeholder="Elige o escribe...">
+        <datalist id="lista-navegadores">
+          <option value="Google Chrome">
+          <option value="Mozilla Firefox">
+          <option value="Microsoft Edge">
+          <option value="Safari">
+          <option value="Brave">
+        </datalist>
+      </div>
+    </fieldset>
+
+    <!-- 2. SELECCIÓN, OPCIONES Y VALORES GRÁFICOS -->
+    <fieldset>
+      <legend>2. Selección, opciones y rangos</legend>
+
+      <div class="form-group">
+        <label>Casillas de verificación (type="checkbox"):</label>
+        <div class="form-group-inline">
+          <input type="checkbox" id="check_frontend" name="intereses" value="frontend">
+          <label for="check_frontend">Frontend</label>
+        </div>
+        <div class="form-group-inline">
+          <input type="checkbox" id="check_backend" name="intereses" value="backend">
+          <label for="check_backend">Backend</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Botones de radio (type="radio"):</label>
+        <div class="form-group-inline">
+          <input type="radio" id="radio_junior" name="nivel" value="junior" checked>
+          <label for="radio_junior">Junior</label>
+        </div>
+        <div class="form-group-inline">
+          <input type="radio" id="radio_senior" name="nivel" value="senior">
+          <label for="radio_senior">Senior</label>
+        </div>
+      </div>
+
+      <!-- SELECT Y OPTGROUP -->
+      <div class="form-group">
+        <label for="pais">Menú desplegable (&lt;select&gt; con &lt;optgroup&gt;):</label>
+        <select id="pais" name="pais">
+          <option value="" disabled selected>Selecciona un país...</option>
+          <optgroup label="Sudamérica">
+            <option value="BO">Bolivia</option>
+            <option value="AR">Argentina</option>
+            <option value="CL">Chile</option>
+          </optgroup>
+          <optgroup label="Europa">
+            <option value="ES">España</option>
+            <option value="FR">Francia</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="rango">Control deslizante (type="range"):</label>
+        <input type="range" id="rango" name="satisfaccion" min="0" max="100" value="75"
+               oninput="salida_rango.value = rango.value">
+        <small>Valor seleccionado: <output id="salida_rango" for="rango">75</output>%</small>
+      </div>
+
+      <div class="form-group">
+        <label for="color">Selector de color (type="color"):</label>
+        <input type="color" id="color" name="color_favorito" value="#0066cc">
+      </div>
+    </fieldset>
+
+    <!-- 3. FECHAS Y HORAS -->
+    <fieldset>
+      <legend>3. Fechas y horas</legend>
+
+      <div class="form-group">
+        <label for="fecha">Fecha (type="date"):</label>
+        <input type="date" id="fecha" name="fecha_nacimiento">
+      </div>
+
+      <div class="form-group">
+        <label for="hora">Hora (type="time"):</label>
+        <input type="time" id="hora" name="hora_cita">
+      </div>
+
+      <div class="form-group">
+        <label for="fecha_hora">Fecha y hora local (type="datetime-local"):</label>
+        <input type="datetime-local" id="fecha_hora" name="reunion">
+      </div>
+
+      <div class="form-group">
+        <label for="mes">Mes y año (type="month"):</label>
+        <input type="month" id="mes" name="mes_tarjeta">
+      </div>
+
+      <div class="form-group">
+        <label for="semana">Semana del año (type="week"):</label>
+        <input type="week" id="semana" name="semana_proyecto">
+      </div>
+    </fieldset>
+
+    <!-- 4. ARCHIVOS Y MÉTRICAS NATIVAS -->
+    <fieldset>
+      <legend>4. Archivos e indicadores de estado</legend>
+
+      <div class="form-group">
+        <label for="archivo">Subir archivo (type="file"):</label>
+        <input type="file" id="archivo" name="documento" accept=".pdf, .png, .jpg" multiple>
+      </div>
+
+      <div class="form-group">
+        <label for="progreso">Barra de progreso (&lt;progress&gt;):</label>
+        <progress id="progreso" value="70" max="100">70%</progress>
+      </div>
+
+      <div class="form-group">
+        <label for="metrica">Medidor de capacidad / rango (&lt;meter&gt;):</label>
+        <meter id="metrica" min="0" max="100" low="30" high="80" optimum="90" value="85">85 de 100</meter>
+      </div>
+    </fieldset>
+
+    <!-- 5. BOTONES Y ACCIONES -->
+    <fieldset>
+      <legend>5. Acciones de formulario</legend>
+
+      <div class="actions">
+        <!-- Input type submit -->
+        <input type="submit" value="Enviar (input submit)">
+
+        <!-- Input type reset -->
+        <input type="reset" value="Restablecer (input reset)">
+
+        <!-- Input type button (para JS) -->
+        <input type="button" value="Acción JS (input button)" onclick="alert('Botón presionado')">
+
+        <!-- Input type image (envío gráfico con coordenadas) -->
+        <input type="image" src="https://via.placeholder.com/90x35/007bff/ffffff?text=Enviar" alt="Botón imagen" title="type='image'">
+
+        <!-- Etiquetas <button> estándar -->
+        <button type="submit">Enviar (&lt;button type="submit"&gt;)</button>
+        <button type="reset">Limpiar (&lt;button type="reset"&gt;)</button>
+        <button type="button" onclick="console.log('Click')">Genérico (&lt;button type="button"&gt;)</button>
+      </div>
+    </fieldset>
+
+  </form>
+
+</body>
+</html>
